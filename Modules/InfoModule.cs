@@ -27,6 +27,7 @@ namespace marvin.Modules
                 List<CommandInfo> commands = CommandHandlers.GetCommandList();
                 foreach (CommandInfo c in commands)
                 {
+                    if (c.Name == "all") break;
                     await ReplyAsync(c.Name + "....." + c.Summary);
                 }
             }
@@ -35,5 +36,13 @@ namespace marvin.Modules
         [Command("State")]
         [Summary("Gets the state of M.A.R.V.I.N. at present.")]
         public Task StateAsync() => ReplyAsync("All systems are optimal, if you consider me optimal.");
+
+        [Command("Date")]
+        [Summary("Provides the current date and time.")]
+        public Task DateAsync() => ReplyAsync(DateTime.Now.ToString());
+
+        [Command("Time")]
+        [Summary("Provides the current time.")]
+        public Task TimeAsync() => ReplyAsync(DateTime.Now.ToString("HH:mm:ss"));
     }
 }
