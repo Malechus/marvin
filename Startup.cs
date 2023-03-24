@@ -38,7 +38,7 @@ namespace marvin
             provider.GetRequiredService<LoggerService>();
             provider.GetRequiredService<CommandHandler>();
 
-            CommandHandlers.Init(provider.GetRequiredService<CommandService>());
+            CommandCalls.Init(provider.GetRequiredService<CommandService>(), provider.GetRequiredService<HttpRequestHandler>());
 
             await provider.GetRequiredService<StartupService>().StartConnectionAsync();
             await Task.Delay(-1);
@@ -61,7 +61,8 @@ namespace marvin
             .AddSingleton<CommandHandler>()
             .AddSingleton<StartupService>()
             .AddSingleton<LoggerService>()
-            .AddSingleton<Random>();
+            .AddSingleton<Random>()
+            .AddSingleton<HttpRequestHandler>();
         }
     }
 }

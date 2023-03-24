@@ -49,7 +49,7 @@ namespace marvin.Entities
 
                 if (!result.IsSuccess)
                 {
-                    await context.Channel.SendMessageAsync(result.ToString());
+                    await context.Channel.SendMessageAsync("I don't know that command. Sorry. I guess you got that one wrong.");
                 }
             }
         }

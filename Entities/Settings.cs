@@ -9,5 +9,9 @@ namespace marvin.Entities
     {
         public required string Token { get; set; }
         public required ulong AnnounceChannel { get; set; }
+        public required ulong DailyChoresChannel { get; set; }
+        public required ulong WeeklyChoresChannel { get; set; }
+        public required ulong AdHocChoresChannel { get; set; }
+        public required string NewsKey { get; set; }
     }
 }

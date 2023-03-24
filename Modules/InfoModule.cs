@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Discord;
 using Discord.Commands;
@@ -11,6 +12,9 @@ using Microsoft.Extensions.Configuration.EnvironmentVariables;
 using Microsoft.Extensions.Configuration.Json;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using NewsAPI;
+using NewsAPI.Constants;
+using NewsAPI.Models;
 
 namespace marvin.Modules
 {
@@ -21,15 +25,13 @@ namespace marvin.Modules
         {
             [Command("all")]
             [Summary("Echos a list of all available commands.")]
+            [Alias("commands")]
             public async Task ListAllAsync()
             {
                 await ReplyAsync("You want the WHOLE list again? Fine, I guess.");
-                List<CommandInfo> commands = CommandHandlers.GetCommandList();
-                foreach (CommandInfo c in commands)
-                {
-                    if (c.Name == "all") break;
-                    await ReplyAsync(c.Name + "....." + c.Summary);
-                }
+                string commands = CommandCalls.GetCommandList();
+
+                await ReplyAsync(commands);
             }
         }
 
