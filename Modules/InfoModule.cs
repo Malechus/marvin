@@ -20,6 +20,12 @@ namespace marvin.Modules
 {
     public class InfoModule : ModuleBase<SocketCommandContext>
     {
+        private readonly IServiceProvider serviceProvider;
+        public InfoModule(IServiceProvider services)
+        {
+            serviceProvider = services;
+        }
+
         [Group("List")]
         public class ListModule : ModuleBase<SocketCommandContext>
         {
@@ -46,5 +52,52 @@ namespace marvin.Modules
         [Command("Time")]
         [Summary("Provides the current time.")]
         public Task TimeAsync() => ReplyAsync(DateTime.Now.ToString("HH:mm:ss"));
+
+        [Command("Me")]
+        [Summary("Identifies the unique user ID of the user.")]
+        [Alias("Whoami")]
+        public async Task WhoAmI()
+        {
+            await ReplyAsync("You're you. Obviously. Oh, you want your user ID. Fine.");
+
+            string id = Context.User.Id.ToString();
+
+            await ReplyAsync(id);
+        }
+
+        [Command("Whois")]
+        [Summary("Get's the unique user ID of the specified user.")]
+        public async Task Whois([Remainder] string? input)
+        {
+            await ReplyAsync("A user lookup? Do you have any idea what a computer like me is capable of? Fine.");
+
+            List<SocketUser> users = Context.Message.MentionedUsers.ToList();
+
+            StringBuilder sb = new StringBuilder();
+
+            foreach (SocketUser u in users)
+            {
+                sb.AppendLine(u.Username.ToString() + "....." + u.Id.ToString());
+            }
+
+            await ReplyAsync(sb.ToString());
+        }
+
+        [Command("Announce")]
+        [Summary("Make an announcement to the server.")]
+        public async Task AnnounceCommand([Remainder] string message)
+        {
+            ulong? annouceChannel = serviceProvider.GetRequiredService<IConfigurationRoot>().GetRequiredSection("Settings").Get<Settings>().AnnounceChannel;
+
+            ITextChannel? channel = Context.Guild.Channels
+                .Where(c => c.Id == annouceChannel)
+                .First()
+                as ITextChannel;
+
+            if (channel is not null)
+            {
+                await channel.SendMessageAsync(message);
+            }
+        }
     }
 }
