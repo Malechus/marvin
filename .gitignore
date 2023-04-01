@@ -479,3 +479,7 @@ $RECYCLE.BIN/
 #hidden data
 */appsettings.json
 appsettings.json
+*/appsettings.Development.json
+appsettings.Development.json
+*/appsettings.Production.json
+appsettings.Production.json
