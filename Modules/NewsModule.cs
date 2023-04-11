@@ -6,7 +6,7 @@ using Discord;
 using Discord.Commands;
 using Discord.Net;
 using Discord.WebSocket;
-using marvin.Entities;
+using marvin.Models;
 using NewsAPI;
 using NewsAPI.Models;
 

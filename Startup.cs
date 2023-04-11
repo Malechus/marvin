@@ -4,7 +4,8 @@ using System.Threading.Tasks;
 using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
-using marvin.Entities;
+using marvin.Models;
+using marvin.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Configuration.Json;
 using Microsoft.Extensions.DependencyInjection;
@@ -71,7 +72,8 @@ namespace marvin
             .AddSingleton<StartupService>()
             .AddSingleton<LoggerService>()
             .AddSingleton<Random>()
-            .AddSingleton<HttpRequestHandler>();
+            .AddSingleton<HttpRequestHandler>()
+            .AddSingleton<DbService>();
         }
     }
 }

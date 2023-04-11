@@ -6,7 +6,7 @@ using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
 
-namespace marvin.Entities
+namespace marvin.Services
 {
     public class LoggerService
     {
