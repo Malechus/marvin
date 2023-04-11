@@ -13,7 +13,7 @@ using Microsoft.Extensions.Configuration.Json;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace marvin.Entities
+namespace marvin.Services
 {
     public class CommandHandler
     {
@@ -43,7 +43,7 @@ namespace marvin.Entities
             var context = new SocketCommandContext(client, message);
 
             int argPos = 0;
-            if (message.HasCharPrefix('!', ref argPos) || message.HasMentionPrefix(client.CurrentUser, ref argPos))
+            if (message.HasCharPrefix('$', ref argPos) || message.HasMentionPrefix(client.CurrentUser, ref argPos))
             {
                 var result = await commands.ExecuteAsync(context, argPos, serviceProvider);
 

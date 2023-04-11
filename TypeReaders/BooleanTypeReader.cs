@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Discord;
 using Discord.Commands;
 
-namespace marvin.Entities
+namespace marvin.TypeReaders
 {
     public class BooleanTypeReader : TypeReader
     {

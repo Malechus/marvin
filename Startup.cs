@@ -4,10 +4,12 @@ using System.Threading.Tasks;
 using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
-using marvin.Entities;
+using marvin.Models;
+using marvin.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Configuration.Json;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace marvin
 {
@@ -15,11 +17,19 @@ namespace marvin
     {
         public IConfigurationRoot Configuration { get; }
 
+        private readonly string runtimeEnvironment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+
         public Startup(string[] args)
         {
+            if (runtimeEnvironment is null)
+            {
+                runtimeEnvironment = "Development";
+            }
+
             IConfigurationBuilder builder = new ConfigurationBuilder()
                 .SetBasePath(AppContext.BaseDirectory)
-                .AddJsonFile("appsettings.json");
+                .AddJsonFile("appsettings.json")
+                .AddJsonFile($"appsettings.{runtimeEnvironment}.json");
             Configuration = builder.Build();
         }
 
@@ -62,7 +72,8 @@ namespace marvin
             .AddSingleton<StartupService>()
             .AddSingleton<LoggerService>()
             .AddSingleton<Random>()
-            .AddSingleton<HttpRequestHandler>();
+            .AddSingleton<HttpRequestHandler>()
+            .AddSingleton<DbService>();
         }
     }
 }

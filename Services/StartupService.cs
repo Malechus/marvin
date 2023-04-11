@@ -4,9 +4,12 @@ using System.Threading.Tasks;
 using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
+using marvin.Models;
+using marvin.Services;
+using marvin.TypeReaders;
 using Microsoft.Extensions.Configuration;
 
-namespace marvin.Entities
+namespace marvin.Services
 {
     public class StartupService
     {

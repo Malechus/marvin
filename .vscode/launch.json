@@ -22,5 +22,8 @@
             "type": "coreclr",
             "request": "attach"
         }
-    ]
+    ],
+    "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+    }
 }

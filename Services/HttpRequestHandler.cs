@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
-using marvin.Entities;
+using marvin.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Configuration.EnvironmentVariables;
 using Microsoft.Extensions.Configuration.Json;
@@ -15,7 +15,7 @@ using NewsAPI;
 using NewsAPI.Constants;
 using NewsAPI.Models;
 
-namespace marvin.Entities
+namespace marvin.Services
 {
     public class HttpRequestHandler
     {

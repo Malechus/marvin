@@ -5,11 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Discord;
 using Discord.Commands;
+using marvin.Services;
 using NewsAPI;
 using NewsAPI.Constants;
 using NewsAPI.Models;
 
-namespace marvin.Entities
+namespace marvin.Models
 {
     public static class CommandCalls
     {
