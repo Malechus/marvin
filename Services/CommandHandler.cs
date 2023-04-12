@@ -7,6 +7,7 @@ using Discord;
 using Discord.Commands;
 using Discord.Net;
 using Discord.WebSocket;
+using marvin.SlashCommands;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Configuration.EnvironmentVariables;
 using Microsoft.Extensions.Configuration.Json;
@@ -32,6 +33,7 @@ namespace marvin.Services
             serviceProvider = _provider;
 
             client.MessageReceived += OnMessageReceivedAsync;
+            client.SlashCommandExecuted += OnSlashExecutedAsync;
         }
 
         private async Task OnMessageReceivedAsync(SocketMessage s)
@@ -54,6 +56,16 @@ namespace marvin.Services
             }
         }
 
-
+        private async Task OnSlashExecutedAsync(SocketSlashCommand command)
+        {
+            switch (command.Data.Name)
+            {
+                case "get-chores":
+                    ChoreSlashCommands.HandleGetChores();
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }
