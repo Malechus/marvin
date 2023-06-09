@@ -88,17 +88,6 @@ namespace marvin.Services
                     throw new ArgumentException();
             }
 
-            strBuilder.AppendLine();
-            strBuilder.AppendLine("Weekly Chores");
-
-            foreach (WeeklyChore weekly in weeklies)
-            {
-                if (weekly.ChoreDay == day)
-                {
-                    strBuilder.AppendLine(weekly.ChoreName + "....." + weekly.Responsibility);
-                }
-            }
-
             string result = strBuilder.ToString();
             return result;
         }
@@ -118,15 +107,6 @@ namespace marvin.Services
             foreach (DailyChore d in dailies)
             {
                 strBuilder.AppendLine(d.ChoreName + "....." + d.Monday + "....." + d.Tuesday + "....." + d.Wednesday + "....." + d.Thursday + "....." + d.Friday + "....." + d.Saturday + "....." + d.Sunday);
-            }
-
-            strBuilder.AppendLine();
-            strBuilder.AppendLine("Weekly Chores");
-            strBuilder.AppendLine("Chore ..... Person ..... Day");
-
-            foreach (WeeklyChore w in weeklies)
-            {
-                strBuilder.AppendLine(w.ChoreName + "....." + w.Responsibility + "....." + w.ChoreDay);
             }
 
             return strBuilder.ToString();
