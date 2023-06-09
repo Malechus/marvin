@@ -22,6 +22,8 @@ public partial class HouseholdContext : DbContext
 
     public virtual DbSet<WeeklyChore> WeeklyChores { get; set; }
 
+    public virtual DbSet<TransactionalChore> TransactionalChores { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseMySql(ConnectionString, Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.32-mysql"));
 
@@ -80,18 +82,42 @@ public partial class HouseholdContext : DbContext
             entity.Property(e => e.Active)
                 .HasColumnType("bit(1)")
                 .HasColumnName("active");
-            entity.Property(e => e.ChoreDay)
+            entity.Property(e => e.WeekOne)
                 .HasMaxLength(25)
-                .HasColumnName("chore_day");
+                .HasColumnName("week_one");
+            entity.Property(e => e.WeekTwo)
+                .HasMaxLength(25)
+                .HasColumnName("week_two");
+            entity.Property(e => e.WeekThree)
+                .HasMaxLength(25)
+                .HasColumnName("week_three");
+            entity.Property(e => e.WeekFour)
+                .HasMaxLength(25)
+                .HasColumnName("week_four");
             entity.Property(e => e.ChoreName)
                 .HasMaxLength(50)
                 .HasColumnName("chore_name");
             entity.Property(e => e.Notes)
                 .HasMaxLength(255)
                 .HasColumnName("notes");
-            entity.Property(e => e.Responsibility)
-                .HasMaxLength(25)
-                .HasColumnName("responsibility");
+        });
+
+        modelBuilder.Entity<TransactionalChore>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PRIMARY");
+
+            entity.ToTable("transactional_chore");
+
+            entity.Property(e => e.Id)
+                .HasColumnName("id");
+            entity.Property(e => e.WeekOf)
+                .HasColumnName("week_of");
+            entity.Property(e => e.ChoreId)
+                .HasColumnName("chore_id");
+            entity.Property(e => e.Completed)
+                .HasColumnName("completed");
+            entity.Property(e => e.CompletedDateTime)
+                .HasColumnName("completed1_datetime");
         });
 
         OnModelCreatingPartial(modelBuilder);

@@ -46,7 +46,23 @@ namespace marvin.Modules
                 response = dbService.GetAllChores();
             }
 
-            await ReplyAsync(response);
+            //If response exceeds macimum length, split into lines and feed to server one at a time.
+            if (response.Length <= 2000)
+            {
+                await ReplyAsync(response);
+            }
+            else
+            {
+                string[] responses = response.Split(
+                    new string[] { Environment.NewLine },
+                    StringSplitOptions.RemoveEmptyEntries
+                );
+
+                foreach (string s in responses)
+                {
+                    await ReplyAsync(s);
+                }
+            }
         }
     }
 }
