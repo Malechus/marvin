@@ -24,6 +24,8 @@ public partial class HouseholdContext : DbContext
 
     public virtual DbSet<TransactionalChore> TransactionalChores { get; set; }
 
+    public virtual DbSet<Person> People { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseMySql(ConnectionString, Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.32-mysql"));
 
@@ -118,6 +120,24 @@ public partial class HouseholdContext : DbContext
                 .HasColumnName("completed");
             entity.Property(e => e.CompletedDateTime)
                 .HasColumnName("completed1_datetime");
+        });
+
+        modelBuilder.Entity<Person>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PRIMARY");
+
+            entity.ToTable("person");
+
+            entity.Property(e => e.Id)
+                .HasColumnName("id");
+            entity.Property(e => e.Name)
+                .HasColumnName("name");
+            entity.Property(e => e.Birthday)
+                .HasColumnName("birthday");
+            entity.Property(e => e.MealPoints)
+                .HasColumnName("meal_poinits");
+            entity.Property(e => e.ChorePoints)
+                .HasColumnName("chore_points");
         });
 
         OnModelCreatingPartial(modelBuilder);
