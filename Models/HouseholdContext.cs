@@ -135,7 +135,7 @@ public partial class HouseholdContext : DbContext
             entity.Property(e => e.Birthday)
                 .HasColumnName("birthday");
             entity.Property(e => e.MealPoints)
-                .HasColumnName("meal_poinits");
+                .HasColumnName("meal_points");
             entity.Property(e => e.ChorePoints)
                 .HasColumnName("chore_points");
         });
